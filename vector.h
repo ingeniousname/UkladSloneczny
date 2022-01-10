@@ -2,6 +2,7 @@
 #define VECTOR_H_
 
 #include <cmath>
+#include <initializer_list>
 
 
 
@@ -31,6 +32,10 @@ class Vector2
     Vector2(const Vector2<int>& other) {this->x = other.x; this->y = other.y; };
     Vector2(const Vector2<float>& other) {this->x = other.x; this->y = other.y; };
     Vector2(const Vector2<double>& other) {this->x = other.x; this->y = other.y; };
+
+    Vector2(std::initializer_list<int> l) {auto it = l.begin(); this->x = *it++; this->y = *it; };
+    Vector2(std::initializer_list<float> l) {auto it = l.begin(); this->x = *it++; this->y = *it; };
+    Vector2(std::initializer_list<double> l) {auto it = l.begin(); this->x = *it++; this->y = *it; };
     
 
     Vector2 operator+(const Vector2& other);
@@ -50,7 +55,7 @@ class Vector2
     Vector2 & operator/=(const float& scalar);
     Vector2 & operator/=(const double& scalar);
 
-    T mag();
+    double mag();
     T mag_squared();
 };
 
@@ -169,7 +174,7 @@ Vector2<T> & Vector2<T>::operator/=(const double& scalar)
 }
 
 template<typename T>
-T Vector2<T>::mag()
+double Vector2<T>::mag()
 {
     return std::sqrt(x * x + y * y);
 }
@@ -196,6 +201,10 @@ class Vector3
     Vector3(const Vector3<int>& other) {this->x = other.x; this->y = other.y; this->z = other.z;};
     Vector3(const Vector3<float>& other) {this->x = other.x; this->y = other.y; this->z = other.z;};
     Vector3(const Vector3<double>& other) {this->x = other.x; this->y = other.y; this->z = other.z;};
+
+    Vector3(std::initializer_list<int> l) {auto it = l.begin(); this->x = *it++; this->y = *it++; this->z = *it; };
+    Vector3(std::initializer_list<float> l) {auto it = l.begin(); this->x = *it++; this->y = *it++; this->z = *it; };
+    Vector3(std::initializer_list<double> l) {auto it = l.begin(); this->x = *it++; this->y = *it++; this->z = *it; };
 
     Vector3(const Vector2<int>& other, int z) {this->x = other.x; this->y = other.y; this->z = z;};
     Vector3(const Vector2<float>& other, int z) {this->x = other.x; this->y = other.y; this->z = z;};
@@ -225,7 +234,7 @@ class Vector3
     Vector3 & operator/=(const float& scalar);
     Vector3 & operator/=(const double& scalar);
 
-    T mag();
+    double mag();
     T mag_squared();
 };
 
@@ -352,7 +361,7 @@ Vector3<T> & Vector3<T>::operator/=(const double& scalar)
 }
 
 template<typename T>
-T Vector3<T>::mag()
+double Vector3<T>::mag()
 {
     return std::sqrt(x * x + y * y + z * z);
 }
