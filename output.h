@@ -15,16 +15,16 @@
 //
 // opis cial (indeksy tak jak w tablicy vector)
 //
-// {indeks ciala} {nazwa ciala}
+// (cialo 0) {nazwa ciala}
 // ...
-// {indeks ciala n} {nazwa ciala n}
+// (cialo n - 1) {nazwa ciala n}
 //
 //
 // 2. WLASCIWE DANE
 //
-// {indeks ciala} {pos.x} {pos.y} {pos.z}
+// (cialo 0) {pos.x} {pos.y} {pos.z}
 // ...
-// {indeks ciala} {pos.x} {pos.y} {pos.z}
+// (cialo n - 1) {pos.x} {pos.y} {pos.z}
 
 
 
