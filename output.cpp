@@ -24,7 +24,7 @@ std::ofstream zainicjalizuj_plik_wejsciowy(std::vector<Cialo_Niebieskie>& ciala,
 
 void wypisz_krok_do_pliku(std::vector<Cialo_Niebieskie>& ciala, std::ofstream& plik_wyjsciowy)
 {
-    for(int i = 0; i < ciala.size(); i++)
+    for(int i = 0; i < 2; i++)
     {
         plik_wyjsciowy << ciala[i].pos.x << " " << ciala[i].pos.y << " " << ciala[i].pos.z << std::endl;
     }

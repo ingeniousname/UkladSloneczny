@@ -2,24 +2,28 @@
 #include "vector.h"
 #include "Cialo.h"
 #include "output.h"
+#include "input.h"
 
 
 void funkcja(std::vector<Cialo_Niebieskie> &cialo,int krok)
 {
 	const double G =6.67259 * pow(10,-11);
-	for( int i =0 ; i < cialo.size() ; i++)
+
+	for(int i = 0 ; i < cialo.size(); i++)
 		cialo[i].acc = {0,0,0};
-	for( int i =0 ; i < cialo.size() ; i++)
-		for ( int j = i+1 ; j < cialo.size() ; j++)
+
+	for(int i = 0 ; i < cialo.size() ; i++)
+		for (int j = i + 1 ; j < cialo.size() ; j++)
 		{
-			double sila= G * ( (cialo[i].masa *cialo[j].masa)/ mag_squared(cialo[i].pos-cialo[j].pos));
-			cialo[i].acc += normalized(cialo[i].pos-cialo[j].pos) *(sila / cialo[i].masa) ;
-			cialo[j].acc += -normalized(cialo[i].pos-cialo[j].pos) *(sila / cialo[j].masa) ;
+			double sila = G * ((cialo[i].masa * cialo[j].masa) / (cialo[i].pos - cialo[j].pos).mag_squared());
+			cialo[i].acc -= (normalized(cialo[i].pos-cialo[j].pos) * (sila / cialo[i].masa));
+			cialo[j].acc += (normalized(cialo[i].pos-cialo[j].pos) * (sila / cialo[j].masa));
 		}
-	for( auto & cialo1:cialo)
+
+	for(auto& cialo1 : cialo)
 	{
-		cialo1.vel += cialo1.acc*krok;
-		cialo1.pos += cialo1.vel*krok;
+		cialo1.vel += cialo1.acc * krok;
+		cialo1.pos += cialo1.vel * krok;
 	}
 }
 
@@ -27,14 +31,22 @@ void funkcja(std::vector<Cialo_Niebieskie> &cialo,int krok)
 int main()
 {
 	std::vector<Cialo_Niebieskie> ciala;
-	ciala.push_back(Cialo_Niebieskie("Slonce", {1.0f, 2.0f, 3.0f}, {1.0f, 2.0f, 3.0f}, {1.0f, 2.0f, 3.0f}, 11.0f));	
-	ciala.push_back(Cialo_Niebieskie("Ziemia", {3.0f, 2.0f, 1.0f}, {3.0f, 2.0f, 1.0f}, {3.0f, 2.0f, 1.0f}, 5.0f));
-	int krok_czasowy = 10;
+    int krok_czasowy;
+    wczytaj_dane_poczatkowe("wejscie.txt", ciala, krok_czasowy);
 
 
 	std::ofstream plik_wyjsciowy = zainicjalizuj_plik_wejsciowy(ciala, krok_czasowy, "wyjscie.txt");
 	wypisz_krok_do_pliku(ciala, plik_wyjsciowy);
 
-	return 0;
+	
+
+	for(int i = 1; i <= 43800 * 5; i++)
+    { 
+		funkcja(ciala, krok_czasowy);
+        wypisz_krok_do_pliku(ciala, plik_wyjsciowy);
+    }
+
+    plik_wyjsciowy << NAN;
+    return 0;
 
 }
